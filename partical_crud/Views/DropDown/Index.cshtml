@@ -1,0 +1,13 @@
+﻿@model IEnumerable<SelectListItem>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<h1>valid</h1>
+
+
+
+select : @Html.DropDownList("Country", Model, null, new { @class = "dropdown", onChange = "GetState()" })
+
+<div id="StatePartial"></div>

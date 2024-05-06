@@ -1,0 +1,12 @@
+﻿@model IEnumerable<SelectListItem>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+select State : @Html.DropDownList("State", Model, null, new { @class = "dropdown" })
+

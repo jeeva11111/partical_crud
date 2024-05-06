@@ -1,0 +1,62 @@
+﻿@model IEnumerable<UserInfo>
+
+
+<div class="container">
+    <div class="row align-items-center">
+        @if (TempData["UserError"] != null)
+        {
+            <div class="alert-danger danger-notification text-center"> @TempData["UserError"] </div>
+        }
+        @if (TempData["UserSuccess"] != null)
+        {
+            <div class="alert-info danger-notification text-center"> @TempData["UserSuccess"] </div>
+        }
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h5 class="card-title badge-soft-primary">
+                    Contact List
+                </h5>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-3">
+                <div>
+                    <a class="btn btn-primary" asp-action="AddUser" asp-controller="User">Add new </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="">
+                <div class="table-responsive">
+                    <table class="table project-list-table align-middle table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="ps-4" style="width: 50px;">
+
+                                    <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
+
+                           
+                            </tr>
+                        </thead>
+                        <tbody>
+                              
+                                
+
+                                 
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div>
+    <h2>New image</h2>
+
+</div>
