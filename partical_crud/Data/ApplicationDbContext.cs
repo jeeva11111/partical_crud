@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using partical_crud.Models;
+using partical_crud.Models.CourseLearn;
 
 
 namespace partical_crud.Data
@@ -15,5 +16,7 @@ namespace partical_crud.Data
         public DbSet<City> City { get; set; }
 
         public DbSet<UserViewModel> AccountInfo { get; set; }
+
+        public DbSet<PlanningCourse> PlanningCourse { get; set; }
     }
 }

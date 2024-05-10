@@ -1,0 +1,99 @@
+﻿@model IEnumerable<partical_crud.Models.CourseLearn.PlanningCourse>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="Content" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="course-list">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalCenterTitle">List Of Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container bootstrap snippets bootdey">
+                    <div class="table-responsive">
+                        <!-- PROJECT TABLE -->
+                        <table class="table colored-header datatable project-list" id="tblCategory">
+
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Process</th>
+                                    <th>Image</th>
+
+                                    <th style="width:200px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="categoryId">
+                                            <label>@item.Id</label>
+                                        </td>
+                                        <td class="categoryTitle">
+                                            <label>@item.Name</label>
+                                            <input type="text" value="@item.Name" style="display:none" name="Name" />
+                                        </td>
+                                        <td class="processTitle">
+                                            <label>@item.Process</label>
+                                            <input type="text" value="@item.Process" style="display:none" name="Process" />
+                                        </td>
+                                        <td class="ImageTitle">
+
+                                        <td class="ImageTitle">
+                                        <td class="ImageTitle">
+                                                    @if (!string.IsNullOrEmpty(item.ImageName))
+                                                    {
+                                                <img src="~/UserProfile/@item.ImageName" name="FormFile" style="width:100px;height:100px; border-radius:50%;" class="text-center" />
+                                                    }
+                                                    else
+                                                    {
+                                                <span>No image available</span>
+                                                    }
+                                            <input type="file" style="display:none" name="FormFile" />
+                                        </td>
+
+                                        <input type="file" style="display:none" name="FormFile" />
+                                        </td>
+
+                                        <input type="file" style="display:none" name="FormFile" />
+                                        </td>
+                                        <td>
+                                            <a class=" btn btn-info Edit">Edit</a>
+                                            <a class=" btn btn-secondary Update" style="display:none">Update</a>
+                                            <a class="btn btn-close Cancel" style="display:none"></a>
+                                            <a class="btn-danger Delete">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!-- END PROJECT TABLE -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section script {
+    <script>
+        alert("dddd")
+    </script>
+
+}
+
+<style>
+
+    #course-list {
+        min-width: 600px;
+        height: 500px;
+    }
+</style>

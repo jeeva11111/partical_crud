@@ -1,0 +1,145 @@
+﻿@* @model IEnumerable<partical_crud.Models.CourseLearn.PlanningCourse>
+
+<button class="btn btn-primary">Create</button>
+
+<table class="table" id="tblCategory">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Process</th>
+            <th style="width:200px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="categoryId">
+                    <label>@item.Id</label>
+                </td>
+                <td class="categoryTitle">
+                    <label>@item.Name</label>
+                    <input type="text" value="@item.Name" style="display:none" name="Name" />
+                </td>
+                <td class="processTitle">
+                    <label>@item.Process</label>
+                    <input type="text" value="@item.Process" style="display:none" name="Process" />
+                </td>
+                <td>
+                    <a class=" btn btn-info Edit">Edit</a>
+                    <a class=" btn btn-secondary Update" style="display:none">Update</a>
+                    <a class="btn btn-close Cancel" style="display:none"></a>
+                    <a class="btn-danger Delete">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section script {
+    <script>
+        $(document).ready(function () {
+          
+            // Edit the model based on closest input box
+            $("#tblCategory .Edit").on("click", function () {
+                var row = $(this).closest("tr");
+                $("td", row).each(function () {
+                    if ($(this).find("input").length > 0) {
+                        $(this).find("input").show();
+                        $(this).find("label").hide();
+                    }
+                });
+                // row.find(".Edit").hide();
+                row.find(".Update").show();
+                row.find(".Cancel").show();
+                row.find(".Delete").hide();
+                $(this).hide();
+            });
+
+            // Update the input box with the closest input box
+            $("#tblCategory .Update").on('click', function () {
+
+               
+                var row = $(this).closest("tr");
+                $("td", row).each(function () {
+                    if ($(this).find("input").length > 0) {
+                        var label = $(this).find("label");
+                        var input = $(this).find("input");
+                        label.html(input.val());
+                        label.show();
+                        input.hide();
+                    }
+                });
+
+                row.find(".Edit").show();
+                row.find(".Delete").show();
+                row.find(".Cancel").hide();
+                $(this).hide();
+
+                var CategoryModelView = {
+                    Id: parseInt(row.find(".categoryId").find("label").html()),
+                    Name: row.find(".categoryTitle").find("label").html(),
+                    Process: row.find(".processTitle").find("label").html()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "Course/Edit",
+                    data: CategoryModelView,
+                    success: function () {
+                        // handle success
+                    }
+                });
+            });
+
+
+            $("#tblCategory .Delete").on('click', function () {
+              
+                var row = $(this).closest('tr');
+                var Id = parseInt(row.find(".categoryId").find("label").html())
+                $(this).hide();
+                row.hide();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Course/Delete',
+                    data: {Id : Id},
+                    success: function () {
+                        console.info("delete")
+                    }, error: function () {
+                        console.log("unable to delete")
+                    }
+                })
+            })
+
+            $("#tblCategory .Cancel").on('click', function () {
+                var row = $(this).closest('tr')
+
+                $("td", row).each(function () {
+                    if ($(this).find("input").length > 0) {
+                        var lable = $(this).find("label")
+                        var input = $(this).find("input")
+                        lable.html(input.val())
+                        input.hide();
+                        lable.show();
+                    }
+                })
+
+                //  row.find("input").hide()
+                row.find(".Edit").show();
+                row.find(".Delete").show();
+                row.find(".Update").hide();
+                $(this).hide();
+            })
+
+
+
+
+
+        });
+    </script>
+
+}
+ *@

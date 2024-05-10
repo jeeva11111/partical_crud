@@ -8,5 +8,11 @@ namespace partical_crud.Controllers
         {
             return View();
         }
+
+        public IActionResult PopTester()
+        {
+
+            return Json("++++++");
+        }
     }
 }

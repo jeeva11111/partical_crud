@@ -363,6 +363,7 @@ function GetState() {
 
 
 function UserModelAdder() {
+
     $.ajax({
         url: '/Form/GetTheForm',
         type: 'GET',
@@ -453,9 +454,136 @@ $("#userFileUpload").on('submit', function (e) {
             $("#UserModelAdd").modal('hide');
             console.log("model hiden")
 
-            
+
             $("#userFileUpload")[0].reset();
             console.log("Form fields reset");
         }, error: function (res) { console.log(res) }
     })
 })
+
+function Typo() {
+
+    // while (true) {
+    $.ajax({
+        url: '/ImageUploads/PopTester',
+        type: 'GET',
+        contentType: 'Application/json',
+        success: function () {
+
+            $("#Content").modal('show');
+
+        }, error: function (error) {
+            console.log(error)
+        }
+    })
+    // }
+}
+
+
+
+
+
+
+
+
+
+// Edit the model based on closest input box
+$("#tblCategory .Edit").on("click", function () {
+
+    var row = $(this).closest("tr");
+    $("td", row).each(function () {
+        if ($(this).find("input").length > 0) {
+            $(this).find("input").show();
+            $(this).find("label").hide();
+        }
+    });
+    // row.find(".Edit").hide();
+    row.find(".Update").show();
+    row.find(".Cancel").show();
+    row.find(".Delete").hide();
+    $(this).hide();
+});
+
+// Update the input box with the closest input box
+$("#tblCategory .Update").on('click', function () {
+    var row = $(this).closest("tr");
+
+    $("td", row).each(function () {
+        if ($(this).find("input").length > 0) {
+            $(this).find("input").hide();
+            $(this).find("label").show();
+        }
+    })
+
+    // Collect form data
+    var formData = new FormData();
+    formData.append("Id", parseInt(row.find(".categoryId").find("label").html()));
+    formData.append("Name", row.find(".categoryTitle").find("label").html());
+    formData.append("Process", row.find(".processTitle").find("label").html());
+
+    // Get the file input value
+    var fileInput = row.find('input[type="file"]')[0];
+    var file = fileInput.files[0];
+    formData.append("FormFile", file);
+
+    $.ajax({
+        type: "POST",
+        url: "/Course/Edit",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function () {
+
+          
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+});
+
+
+
+$("#tblCategory .Delete").on('click', function () {
+
+    var row = $(this).closest('tr');
+    var Id = parseInt(row.find(".categoryId").find("label").html())
+    $(this).hide();
+    row.hide();
+
+    $.ajax({
+        type: 'POST',
+        url: '/Course/Delete',
+        data: { Id: Id },
+        success: function () {
+            console.info("delete")
+        }, error: function () {
+            console.log("unable to delete")
+        }
+    })
+})
+
+$("#tblCategory .Cancel").on('click', function () {
+    var row = $(this).closest('tr')
+
+    $("td", row).each(function () {
+        if ($(this).find("input").length > 0) {
+            var lable = $(this).find("label")
+            var input = $(this).find("input")
+            lable.html(input.val())
+            input.hide();
+            lable.show();
+        }
+    })
+
+    //  row.find("input").hide()
+    row.find(".Edit").show();
+    row.find(".Delete").show();
+    row.find(".Update").hide();
+    $(this).hide();
+})
+
+
+
+
+

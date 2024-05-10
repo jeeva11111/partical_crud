@@ -59,6 +59,31 @@ namespace partical_crud.Migrations
                     b.ToTable("Country");
                 });
 
+            modelBuilder.Entity("partical_crud.Models.CourseLearn.PlanningCourse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Data")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Process")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlanningCourse");
+                });
+
             modelBuilder.Entity("partical_crud.Models.State", b =>
                 {
                     b.Property<int>("Id")
